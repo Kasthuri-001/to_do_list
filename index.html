@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Productivity Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
+</head>
+<body>
+  <!-- Mobile Menu Toggle -->
+  <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle navigation menu">
+    <i class="fas fa-bars"></i>
+  </button>
+
+  <!-- Navigation Sidebar -->
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h2><i class="fas fa-rocket"></i> Dashboard</h2>
+    </div>
+    <ul class="nav-menu">
+      <li class="nav-item active" data-page="home">
+        <a href="#" class="nav-link">
+          <i class="fas fa-home"></i>
+          <span>Home</span>
+        </a>
+      </li>
+      <li class="nav-item" data-page="tasks">
+        <a href="#" class="nav-link">
+          <i class="fas fa-tasks"></i>
+          <span>Tasks</span>
+        </a>
+      </li>
+      <li class="nav-item" data-page="notes">
+        <a href="#" class="nav-link">
+          <i class="fas fa-sticky-note"></i>
+          <span>Notes</span>
+        </a>
+      </li>
+      <li class="nav-item" data-page="reminders">
+        <a href="#" class="nav-link">
+          <i class="fas fa-bell"></i>
+          <span>Reminders</span>
+        </a>
+      </li>
+      <li class="nav-item" data-page="calendar">
+        <a href="#" class="nav-link">
+          <i class="fas fa-calendar"></i>
+          <span>Calendar</span>
+        </a>
+      </li>
+      <li class="nav-item" data-page="links">
+        <a href="#" class="nav-link">
+          <i class="fas fa-link"></i>
+          <span>Quick Links</span>
+        </a>
+      </li>
+      <li class="nav-item" data-page="resources">
+        <a href="#" class="nav-link">
+          <i class="fas fa-book"></i>
+          <span>Resources</span>
+        </a>
+      </li>
+      <li class="nav-item" data-page="settings">
+        <a href="#" class="nav-link">
+          <i class="fas fa-cog"></i>
+          <span>Settings</span>
+        </a>
+      </li>
+    </ul>
+
+    <!-- Theme Switcher -->
+    <div class="theme-switcher">
+      <button class="theme-btn active" data-theme="pastel" title="Pastel Theme">
+        <i class="fas fa-palette"></i>
+      </button>
+      <button class="theme-btn" data-theme="neon" title="Neon Theme">
+        <i class="fas fa-bolt"></i>
+      </button>
+      <button class="theme-btn" data-theme="dark" title="Dark Theme">
+        <i class="fas fa-moon"></i>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main Content Area -->
+  <main class="main-content" id="mainContent">
+    
+    <!-- Home Page -->
+    <section class="page active" id="homePage">
+      <div class="page-header">
+        <h1><i class="fas fa-home"></i> Welcome to Your Dashboard</h1>
+        <p class="subtitle">Manage your productivity in one place</p>
+      </div>
+      
+      <div class="dashboard-grid">
+        <!-- Stats Cards -->
+        <div class="stats-container">
+          <div class="stat-card">
+            <div class="stat-icon">
+              <i class="fas fa-tasks"></i>
+            </div>
+            <div class="stat-info">
+              <h3 id="totalTasksCount">0</h3>
+              <p>Total Tasks</p>
+            </div>
+          </div>
+          
+          <div class="stat-card">
+            <div class="stat-icon">
+              <i class="fas fa-check-circle"></i>
+            </div>
+            <div class="stat-info">
+              <h3 id="completedTasksCount">0</h3>
+              <p>Completed</p>
+            </div>
+          </div>
+          
+          <div class="stat-card">
+            <div class="stat-icon">
+              <i class="fas fa-sticky-note"></i>
+            </div>
+            <div class="stat-info">
+              <h3 id="totalNotesCount">0</h3>
+              <p>Notes</p>
+            </div>
+          </div>
+          
+          <div class="stat-card">
+            <div class="stat-icon">
+              <i class="fas fa-bell"></i>
+            </div>
+            <div class="stat-info">
+              <h3 id="activeRemindersCount">0</h3>
+              <p>Reminders</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="quick-actions">
+          <h2>Quick Actions</h2>
+          <div class="action-buttons">
+            <button class="action-btn" onclick="navigateToPage('tasks')">
+              <i class="fas fa-plus"></i>
+              Add Task
+            </button>
+            <button class="action-btn" onclick="navigateToPage('notes')">
+              <i class="fas fa-pen"></i>
+              New Note
+            </button>
+            <button class="action-btn" onclick="navigateToPage('reminders')">
+              <i class="fas fa-clock"></i>
+              Set Reminder
+            </button>
+            <button class="action-btn" onclick="navigateToPage('calendar')">
+              <i class="fas fa-calendar-day"></i>
+              View Calendar
+            </button>
+          </div>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="recent-activity">
+          <h2>Recent Activity</h2>
+          <div class="activity-list" id="recentActivityList">
+            <div class="activity-item">
+              <i class="fas fa-info-circle"></i>
+              <span>Welcome to your productivity dashboard!</span>
+              <small>Just now</small>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mini Calendar Widget -->
+        <div class="mini-calendar">
+          <h2>Today's Overview</h2>
+          <div class="calendar-widget" id="miniCalendar">
+            <div class="current-date" id="currentDate"></div>
+            <div class="current-time" id="currentTime"></div>
+            <div class="date-facts" id="dateFacts"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tasks Page -->
+    <section class="page" id="tasksPage">
+      <div class="page-header">
+        <h1><i class="fas fa-tasks"></i> Tasks</h1>
+        <p class="subtitle">Manage your to-do list</p>
+      </div>
+      
+      <div class="todo-container">
+        <div class="search-and-sort">
+          <input type="text" id="searchInput" placeholder="🔍 Search tasks..." class="search-input">
+          <button id="sortBtn" class="sort-btn">Sort: Default</button>
+        </div>
+        
+        <div class="task-input-container">
+          <input type="text" id="taskInput" placeholder="Enter a new task..." class="task-input">
+          <button id="addTaskBtn" class="add-btn">
+            <i class="fas fa-plus"></i> Add Task
+          </button>
+        </div>
+        
+        <div class="task-stats" id="taskStats">0 / 0 completed</div>
+        
+        <ul id="taskList" class="todo-list"></ul>
+      </div>
+    </section>
+
+    <!-- Notes Page -->
+    <section class="page" id="notesPage">
+      <div class="page-header">
+        <h1><i class="fas fa-sticky-note"></i> Notes</h1>
+        <p class="subtitle">Keep your thoughts organized</p>
+      </div>
+      
+      <div class="notes-container">
+        <div class="note-input-container">
+          <textarea id="noteInput" placeholder="Write your note here..." class="note-input"></textarea>
+          <button id="addNoteBtn" class="add-btn">
+            <i class="fas fa-save"></i> Save Note
+          </button>
+        </div>
+        
+        <div id="notes" class="notes-list"></div>
+      </div>
+    </section>
+
+    <!-- Reminders Page -->
+    <section class="page" id="remindersPage">
+      <div class="page-header">
+        <h1><i class="fas fa-bell"></i> Reminders</h1>
+        <p class="subtitle">Never forget important dates</p>
+      </div>
+      
+      <div class="reminders-container">
+        <div class="reminder-input-container">
+          <input type="text" id="reminderText" placeholder="Reminder text..." class="reminder-input">
+          <input type="datetime-local" id="reminderTime" class="reminder-time">
+          <button id="addReminderBtn" class="add-btn">
+            <i class="fas fa-clock"></i> Set Reminder
+          </button>
+        </div>
+        
+        <ul id="reminderList" class="reminder-list"></ul>
+      </div>
+    </section>
+
+    <!-- Calendar Page -->
+    <section class="page" id="calendarPage">
+      <div class="page-header">
+        <h1><i class="fas fa-calendar"></i> Calendar</h1>
+        <p class="subtitle">View your monthly schedule</p>
+      </div>
+      
+      <div class="calendar-container">
+        <div id="calendar" class="calendar-full"></div>
+      </div>
+    </section>
+
+    <!-- Quick Links Page -->
+    <section class="page" id="linksPage">
+      <div class="page-header">
+        <h1><i class="fas fa-link"></i> Quick Links</h1>
+        <p class="subtitle">Fast access to important resources</p>
+      </div>
+      
+      <div class="links-container">
+        <div class="link-category">
+          <h3><i class="fas fa-code"></i> Development</h3>
+          <div class="link-grid">
+            <a href="https://github.com" target="_blank" class="link-card">
+              <i class="fab fa-github"></i>
+              <span>GitHub</span>
+            </a>
+            <a href="https://stackoverflow.com" target="_blank" class="link-card">
+              <i class="fab fa-stack-overflow"></i>
+              <span>Stack Overflow</span>
+            </a>
+            <a href="https://developer.mozilla.org" target="_blank" class="link-card">
+              <i class="fab fa-firefox"></i>
+              <span>MDN Web Docs</span>
+            </a>
+            <a href="https://codepen.io" target="_blank" class="link-card">
+              <i class="fab fa-codepen"></i>
+              <span>CodePen</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="link-category">
+          <h3><i class="fas fa-paint-brush"></i> Design</h3>
+          <div class="link-grid">
+            <a href="https://figma.com" target="_blank" class="link-card">
+              <i class="fab fa-figma"></i>
+              <span>Figma</span>
+            </a>
+            <a href="https://dribbble.com" target="_blank" class="link-card">
+              <i class="fab fa-dribbble"></i>
+              <span>Dribbble</span>
+            </a>
+            <a href="https://behance.net" target="_blank" class="link-card">
+              <i class="fab fa-behance"></i>
+              <span>Behance</span>
+            </a>
+            <a href="https://unsplash.com" target="_blank" class="link-card">
+              <i class="fab fa-unsplash"></i>
+              <span>Unsplash</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="link-category">
+          <h3><i class="fas fa-graduation-cap"></i> Learning</h3>
+          <div class="link-grid">
+            <a href="https://coursera.org" target="_blank" class="link-card">
+              <i class="fas fa-book-open"></i>
+              <span>Coursera</span>
+            </a>
+            <a href="https://udemy.com" target="_blank" class="link-card">
+              <i class="fas fa-video"></i>
+              <span>Udemy</span>
+            </a>
+            <a href="https://freecodecamp.org" target="_blank" class="link-card">
+              <i class="fab fa-free-code-camp"></i>
+              <span>freeCodeCamp</span>
+            </a>
+            <a href="https://youtube.com/coding" target="_blank" class="link-card">
+              <i class="fab fa-youtube"></i>
+              <span>YouTube Coding</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="link-category">
+          <h3><i class="fas fa-tools"></i> Tools</h3>
+          <div class="link-grid">
+            <a href="https://notion.so" target="_blank" class="link-card">
+              <i class="fas fa-clipboard"></i>
+              <span>Notion</span>
+            </a>
+            <a href="https://trello.com" target="_blank" class="link-card">
+              <i class="fab fa-trello"></i>
+              <span>Trello</span>
+            </a>
+            <a href="https://slack.com" target="_blank" class="link-card">
+              <i class="fab fa-slack"></i>
+              <span>Slack</span>
+            </a>
+            <a href="https://zoom.us" target="_blank" class="link-card">
+              <i class="fas fa-video"></i>
+              <span>Zoom</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Resources Page -->
+    <section class="page" id="resourcesPage">
+      <div class="page-header">
+        <h1><i class="fas fa-book"></i> Resources</h1>
+        <p class="subtitle">Helpful documentation and guides</p>
+      </div>
+      
+      <div class="resources-container">
+        <div class="resource-section">
+          <h3><i class="fas fa-code"></i> API Documentation</h3>
+          <div class="resource-list">
+            <a href="https://developer.mozilla.org/en-US/docs/Web/API" target="_blank" class="resource-item">
+              <i class="fas fa-globe"></i>
+              <div>
+                <h4>Web API Reference</h4>
+                <p>Complete web API documentation from MDN</p>
+              </div>
+            </a>
+            <a href="https://restfulapi.net/" target="_blank" class="resource-item">
+              <i class="fas fa-plug"></i>
+              <div>
+                <h4>REST API Guide</h4>
+                <p>Learn REST API design principles</p>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <div class="resource-section">
+          <h3><i class="fas fa-paint-brush"></i> UI/UX Resources</h3>
+          <div class="resource-list">
+            <a href="https://material.io/design" target="_blank" class="resource-item">
+              <i class="fas fa-palette"></i>
+              <div>
+                <h4>Material Design</h4>
+                <p>Google's design system guidelines</p>
+              </div>
+            </a>
+            <a href="https://tailwindcss.com" target="_blank" class="resource-item">
+              <i class="fas fa-wind"></i>
+              <div>
+                <h4>Tailwind CSS</h4>
+                <p>Utility-first CSS framework</p>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <div class="resource-section">
+          <h3><i class="fas fa-trophy"></i> Practice Platforms</h3>
+          <div class="resource-list">
+            <a href="https://leetcode.com" target="_blank" class="resource-item">
+              <i class="fas fa-laptop-code"></i>
+              <div>
+                <h4>LeetCode</h4>
+                <p>Algorithm and data structure problems</p>
+              </div>
+            </a>
+            <a href="https://hackerrank.com" target="_blank" class="resource-item">
+              <i class="fas fa-code"></i>
+              <div>
+                <h4>HackerRank</h4>
+                <p>Coding challenges and competitions</p>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Settings Page -->
+    <section class="page" id="settingsPage">
+      <div class="page-header">
+        <h1><i class="fas fa-cog"></i> Settings</h1>
+        <p class="subtitle">Customize your dashboard</p>
+      </div>
+      
+      <div class="settings-container">
+        <div class="setting-group">
+          <h3><i class="fas fa-palette"></i> Appearance</h3>
+          <div class="setting-item">
+            <label>Theme</label>
+            <select id="themeSelect">
+              <option value="pastel">Pastel</option>
+              <option value="neon">Neon</option>
+              <option value="dark">Dark</option>
+            </select>
+          </div>
+          <div class="setting-item">
+            <label>Font Size</label>
+            <input type="range" id="fontSizeSlider" min="12" max="20" value="16">
+            <span id="fontSizeValue">16px</span>
+          </div>
+        </div>
+
+        <div class="setting-group">
+          <h3><i class="fas fa-bell"></i> Notifications</h3>
+          <div class="setting-item">
+            <label>Enable Notifications</label>
+            <input type="checkbox" id="notificationToggle" checked>
+          </div>
+          <div class="setting-item">
+            <label>Sound Effects</label>
+            <input type="checkbox" id="soundToggle">
+          </div>
+        </div>
+
+        <div class="setting-group">
+          <h3><i class="fas fa-database"></i> Data Management</h3>
+          <button class="setting-btn danger" onclick="clearAllData()">
+            <i class="fas fa-trash"></i> Clear All Data
+          </button>
+          <button class="setting-btn primary" onclick="exportData()">
+            <i class="fas fa-download"></i> Export Data
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Notification Container -->
+  <div class="notification-container" id="notificationContainer"></div>
+
+  <!-- Scripts -->
+  <script src="scrpit.js"></script>
+</body>
+</html>
